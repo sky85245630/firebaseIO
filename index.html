@@ -36,5 +36,11 @@
 //   console.log(database)
   console.log(firebase)
   firebase.database().ref().set('hi')
+
+  var data = {'asd':'1','zxc':'2'}
+  firebase.database().ref().set(data)
+  //修改裡面的資料
+  firebase.database().ref('asd/asd1').set('QQ')
+
 </script>
 </html>
