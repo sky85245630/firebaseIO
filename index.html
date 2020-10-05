@@ -49,5 +49,9 @@
   myName.once('value',function(snapshot){
     alert(snapshot.val())
   })
+
+  var todos = firebase.database().ref('todos')
+  var todos = firebase.database().ref().child('todos')
+
 </script>
 </html>
