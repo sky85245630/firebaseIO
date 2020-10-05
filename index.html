@@ -49,7 +49,7 @@
   myName.once('value',function(snapshot){
     alert(snapshot.val())
   })
-
+  //下面兩個語法一樣
   var todos = firebase.database().ref('todos')
   var todos = firebase.database().ref().child('todos')
 
