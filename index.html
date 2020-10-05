@@ -42,6 +42,7 @@
   //修改裡面的資料
   firebase.database().ref('asd/asd1').set('QQ')
   //once只執行一次（資料庫更動的時候前端不會更動） 
+  //on隨時監控（跟once一樣的寫法 不過在資料庫更動的時候前端也會更動，比較適合用來作聊天室）
   //快照
   firebase.database().ref('myName').set('QQQQ')
   var myName = firebase.database().ref('myName');
