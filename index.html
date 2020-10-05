@@ -41,6 +41,12 @@
   firebase.database().ref().set(data)
   //修改裡面的資料
   firebase.database().ref('asd/asd1').set('QQ')
-
+  //once只執行一次（資料庫更動的時候前端不會更動） 
+  //快照
+  firebase.database().ref('myName').set('QQQQ')
+  var myName = firebase.database().ref('myName');
+  myName.once('value',function(snapshot){
+    alert(snapshot.val())
+  })
 </script>
 </html>
