@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+  <input id="txt" type="text" placeholder="請輸入內容..">
+  <input type="button" id="send" value="送出">
+  <ul id="list">
+
+  </ul>
+</body>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.21.1/firebase.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyDUb1aM6aZ-1fWgr42CyaxTYZziCKX6cEg",
+    authDomain: "nodejsqq.firebaseapp.com",
+    databaseURL: "https://nodejsqq.firebaseio.com",
+    projectId: "nodejsqq",
+    storageBucket: "nodejsqq.appspot.com",
+    messagingSenderId: "532371007987",
+    appId: "1:532371007987:web:36ce258583f45a6d458a86",
+    measurementId: "G-NMRNYLR7P7"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+//   var database = firebase.database();
+//   console.log(database)
+  console.log(firebase)
+  firebase.database().ref().set('hi')
+
+  var data = {'asd':'1','zxc':'2'}
+  firebase.database().ref().set(data)
+  //修改裡面的資料
+  firebase.database().ref('asd/asd1').set('QQ')
+  //once只執行一次（資料庫更動的時候前端不會更動） 
+  //on隨時監控（跟once一樣的寫法 不過在資料庫更動的時候前端也會更動，比較適合用來作聊天室）
+  //快照
+  firebase.database().ref('myName').set('QQQQ')
+  var myName = firebase.database().ref('myName');
+  myName.once('value',function(snapshot){
+    alert(snapshot.val())
+  })
+  //下面兩個語法一樣
+  var todos = firebase.database().ref('todos')
+  var todos = firebase.database().ref().child('todos')
+
+
+
+
+  var txt = document.getElementById('txt');
+    var send = document.getElementById('send');
+    var list = document.getElementById('list')
+    // todos
+    var todos = firebase.database().ref('todos');
+
+    // 按送出按鈕，可以寫入到資料庫
+    send.addEventListener('click',function(e){
+        console.log(txt.value);
+        todos.push({content: txt.value});
+    })
+    // 顯示內容出來
+    todos.on('value',function(snapshot){
+        var str = '';
+        var data = snapshot.val();
+        for(var item in data){
+            str+='<li data-key="'+ item +'">'+data[item].content+'</li>';
+            
+        }
+        list.innerHTML = str;
+    })
+    // 刪除邏輯
+    list.addEventListener('click',function(e){
+        
+        if(e.target.nodeName=="LI"){
+            var key = e.target.dataset.key;
+            todos.child(key).remove();
+        }
+    })
+
+</script>
+</html>
