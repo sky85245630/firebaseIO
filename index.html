@@ -71,6 +71,16 @@
         console.log(txt.value);
         todos.push({content: txt.value});
     })
+    // 顯示內容出來
+    todos.on('value',function(snapshot){
+        var str = '';
+        var data = snapshot.val();
+        for(var item in data){
+            str+='<li data-key="'+ item +'">'+data[item].content+'</li>';
+            
+        }
+        list.innerHTML = str;
+    })
     
 
 </script>
